@@ -286,6 +286,8 @@ Implemented Controllers:
 GET /api/protocols
 GET /api/protocols/{id}
 PUT /api/protocols/{id}
+
+GET /api/protocols/{id}/threads
 ```
 
 ---
@@ -318,6 +320,8 @@ PUT /api/comments/{id}
 GET /api/reviews
 GET /api/reviews/{id}
 POST /api/reviews
+
+GET /api/protocols/{id}/reviews
 ```
 
 ---
