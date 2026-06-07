@@ -182,7 +182,7 @@ app/
 ## Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/alinsub16/protocol-platform-backend.git
 cd protocol-platform
 ```
 
