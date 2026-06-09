@@ -14,28 +14,28 @@ return new class extends Migration
             Schema::create('reviews', function (Blueprint $table) {
                 $table->id();
 
-                // 🔗 Protocol being reviewed
+                //  Protocol being reviewed
                 $table->foreignId('protocol_id')
                     ->constrained()
                     ->cascadeOnDelete();
 
-                // 👤 Reviewer
+                //  Reviewer
                 $table->foreignId('user_id')
                     ->constrained()
                     ->cascadeOnDelete();
 
-                // ⭐ Rating (1–5)
+                //  Rating (1–5)
                 $table->unsignedTinyInteger('rating');
 
-                // 📝 Optional feedback
+                //  Optional feedback
                 $table->text('feedback')->nullable();
 
                 $table->timestamps();
 
-                // 🚨 One review per user per protocol
-                $table->unique(['protocol_id', 'user_id']);
+                //  One review per user per protocol
+                // $table->unique(['protocol_id', 'user_id']);
 
-                // 📊 Indexes
+                //  Indexes
                 $table->index(['rating']);
                 $table->index(['created_at']);
             });

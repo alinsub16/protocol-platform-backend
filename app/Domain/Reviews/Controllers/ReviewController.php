@@ -26,38 +26,28 @@ class ReviewController
      * POST /api/reviews
      */
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'protocol_id' => ['required', 'exists:protocols,id'],
-            'rating' => ['required', 'integer', 'min:1', 'max:5'],
-            'feedback' => ['nullable', 'string'],
-        ]);
+{
+    $validated = $request->validate([
+        'protocol_id' => ['required', 'exists:protocols,id'],
+        'rating' => ['required', 'integer', 'min:1', 'max:5'],
+        'feedback' => ['nullable', 'string'],
+    ]);
 
-        $userId = 1; // replace later with auth()->id()
+    $userId = 1;
 
-        $existingReview = Review::where('protocol_id', $validated['protocol_id'])
-            ->where('user_id', $userId)
-            ->first();
+    $review = Review::create([
+        'protocol_id' => $validated['protocol_id'],
+        'user_id' => $userId,
+        'rating' => $validated['rating'],
+        'feedback' => $validated['feedback'] ?? null,
+    ]);
 
-        if ($existingReview) {
-            return response()->json([
-                'message' => 'You have already reviewed this protocol.'
-            ], 422);
-        }
+    $this->updateProtocolRating($review->protocol);
 
-        $review = Review::create([
-            'protocol_id' => $validated['protocol_id'],
-            'user_id' => $userId,
-            'rating' => $validated['rating'],
-            'feedback' => $validated['feedback'] ?? null,
-        ]);
-
-        $this->updateProtocolRating($review->protocol);
-
-        return new ReviewResource(
-            $review->load('user')
-        );
-    }
+    return new ReviewResource(
+        $review->load('user')
+    );
+}
 
     /**
      * PUT /api/reviews/{review}

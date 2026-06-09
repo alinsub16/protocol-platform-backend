@@ -4,6 +4,8 @@ namespace App\Domain\Votes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\VoteFactory;
+use App\Models\User;
 
 class Vote extends Model
 {
@@ -24,7 +26,7 @@ class Vote extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function votable()
@@ -34,6 +36,6 @@ class Vote extends Model
 
      protected static function newFactory()
     {
-        return \Database\Factories\VoteFactory::new();
+        return VoteFactory::new();
     }
 }

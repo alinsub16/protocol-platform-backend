@@ -18,7 +18,7 @@ class ProtocolResource extends JsonResource
                 ? json_decode($this->tags, true)
                 : $this->tags,
 
-            'avg_rating' => round($this->reviews_avg_rating ?? 0, 1),
+            'avg_rating' => round( $this->reviews_avg_rating ?? 0, 1 ),
             'reviews_count' => $this->reviews_count ?? 0,
 
             'author' => [

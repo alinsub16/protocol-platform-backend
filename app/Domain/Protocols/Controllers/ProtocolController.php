@@ -16,7 +16,8 @@ class ProtocolController
     {
         $query = Protocol::query()
             ->with(['user'])
-            ->withCount(['threads', 'reviews']);
+            ->withCount(['threads', 'reviews'])
+            ->withAvg('reviews', 'rating');
 
         //  SEARCH
         if ($request->filled('search')) {
@@ -57,6 +58,7 @@ class ProtocolController
             'reviews.user',
         ]);
         $protocol->loadCount(['threads', 'reviews']);
+        $protocol->loadAvg('reviews', 'rating');
 
         return new ProtocolResource($protocol);
     }

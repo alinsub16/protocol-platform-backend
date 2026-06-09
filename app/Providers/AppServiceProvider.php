@@ -3,22 +3,17 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use App\Domain\Threads\Models\Thread;
+use App\Domain\Comments\Models\Comment;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
+        Relation::enforceMorphMap([ 
+            'thread' => Thread::class,
+            'comment' => Comment::class,
+        ]);
     }
 }
